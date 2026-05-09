@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SHAANDART Deposit</title>
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
+}
+
+body{
+
+  min-height:100vh;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  overflow:hidden;
+
+  background:#000;
+
+  position:relative;
+}
+
+/* Background Tiles */
+
+body::before{
+
+  content:"";
+
+  position:absolute;
+  width:100%;
+  height:100%;
+
+  background-image:url('welcome.jpg');
+
+  background-size:180px;
+
+  background-repeat:repeat;
+
+  opacity:0.08;
+
+  filter:blur(1px);
+
+  z-index:1;
+}
+
+/* Main Card */
+
+.card{
+
+  position:relative;
+  z-index:5;
+
+  width:360px;
+  max-width:95%;
+
+  max-height:95vh;
+  overflow-y:auto;
+
+  background:linear-gradient(180deg,#111,#000);
+
+  border:2px solid #d4af37;
+
+  border-radius:25px;
+
+  padding:25px;
+
+  box-shadow:
+  0 0 25px rgba(212,175,55,0.5),
+  0 0 60px rgba(212,175,55,0.2);
+
+  animation:zoomEntry 1s ease;
+}
+
+/* Zoom Animation */
+
+@keyframes zoomEntry{
+
+  0%{
+    transform:scale(0.5);
+    opacity:0;
+  }
+
+  100%{
+    transform:scale(1);
+    opacity:1;
+  }
+}
+
+/* Logo */
+
+.logo{
+
+  width:100%;
+
+  border-radius:18px;
+
+  margin-bottom:20px;
+
+  border:2px solid #d4af37;
+}
+
+/* Heading */
+
+h2{
+
+  text-align:center;
+
+  color:#d4af37;
+
+  font-size:26px;
+
+  margin-bottom:8px;
+
+  text-shadow:0 0 10px rgba(212,175,55,0.7);
+}
+
+/* Subtitle */
+
+.subtitle{
+
+  text-align:center;
+
+  color:#bbb;
+
+  font-size:14px;
+
+  margin-bottom:22px;
+}
+
+/* Labels */
+
+label{
+
+  color:#d4af37;
+
+  font-size:14px;
+
+  display:block;
+
+  margin-top:12px;
+}
+
+/* Inputs */
+
+input{
+
+  width:100%;
+
+  padding:12px;
+
+  margin-top:8px;
+
+  border:none;
+
+  border-radius:12px;
+
+  background:#1a1a1a;
+
+  color:white;
+
+  outline:none;
+
+  border:1px solid #333;
+}
+
+/* Quick Buttons */
+
+.quick-buttons{
+
+  display:grid;
+
+  grid-template-columns:repeat(3,1fr);
+
+  gap:10px;
+
+  margin-top:12px;
+}
+
+.quick-buttons button{
+
+  padding:10px;
+
+  border:none;
+
+  border-radius:10px;
+
+  background:#d4af37;
+
+  color:black;
+
+  font-weight:bold;
+
+  cursor:pointer;
+
+  transition:0.3s;
+}
+
+.quick-buttons button:hover{
+
+  transform:scale(1.05);
+}
+
+/* Deposit Button */
+
+.pay-btn{
+
+  width:100%;
+
+  margin-top:25px;
+
+  padding:15px;
+
+  border:none;
+
+  border-radius:15px;
+
+  background:linear-gradient(90deg,#d4af37,#ffcc00);
+
+  color:black;
+
+  font-size:18px;
+
+  font-weight:bold;
+
+  cursor:pointer;
+
+  box-shadow:0 0 20px rgba(255,204,0,0.5);
+
+  transition:0.3s;
+}
+
+.pay-btn:hover{
+
+  transform:scale(1.03);
+}
+
+/* Error */
+
+.error{
+
+  color:#ff4d4d;
+
+  margin-top:8px;
+
+  font-size:13px;
+
+  text-align:center;
+}
+
+/* Scrollbar */
+
+.card::-webkit-scrollbar{
+  width:6px;
+}
+
+.card::-webkit-scrollbar-thumb{
+  background:#d4af37;
+  border-radius:10px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+
+  <!-- Logo -->
+
+  <img src="welcome.jpg" class="logo">
+
+  <h2>Deposit Now in SHAANDART 🎯</h2>
+
+  <div class="subtitle">
+    Trusted Exchange • Fast Deposits • Secure Payments
+  </div>
+
+  <label>Amount (₹)</label>
+
+  <input type="number" id="amount" placeholder="Enter Amount">
+
+  <!-- Quick Amount Buttons -->
+
+  <div class="quick-buttons">
+
+    <button onclick="setAmount(100)">₹100</button>
+
+    <button onclick="setAmount(500)">₹500</button>
+
+    <button onclick="setAmount(1000)">₹1000</button>
+
+    <button onclick="setAmount(5000)">₹5000</button>
+
+    <button onclick="setAmount(10000)">₹10000</button>
+
+    <button onclick="setAmount(100000)">₹100000</button>
+
+  </div>
+
+  <label>Name (optional)</label>
+
+  <input type="text" id="name" placeholder="Your Name">
+
+  <label>Note (optional)</label>
+
+  <input type="text" id="note" placeholder="Payment Note">
+
+  <div class="error" id="error"></div>
+
+  <!-- Deposit Button -->
+
+  <button class="pay-btn" onclick="payNow()">
+    Deposit Now in SHAANDART 🎯
+  </button>
+
+</div>
+
+<script>
+
+function setAmount(val){
+
+  document.getElementById("amount").value = val;
+}
+
+function payNow(){
+
+  var amt = document.getElementById("amount").value;
+
+  var name = document.getElementById("name").value;
+
+  var note = document.getElementById("note").value;
+
+  var error = document.getElementById("error");
+
+  error.innerText = "";
+
+  if(!amt || amt <= 0){
+
+    error.innerText = "Please enter valid amount";
+
+    return;
+  }
+
+  if(amt > 100000){
+
+    error.innerText = "Amount too large";
+
+    return;
+  }
+
+  name = encodeURIComponent(name);
+
+  note = encodeURIComponent(note);
+
+  var baseUrl =
+  "https://www.upiintentsoft.com/paylink?link=268";
+
+  var finalUrl = baseUrl + "&amt=" + amt;
+
+  if(name)
+  finalUrl += "&name=" + name;
+
+  if(note)
+  finalUrl += "&note=" + note;
+
+  window.open(finalUrl,"_blank");
+}
+
+</script>
+
+</body>
+</html>
